@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Um tributo mágico para Iara Silvia — Mãe, Servidora Pública, Estudante de Direito na UERJ e aprendiz de violino.">
+    <title>🎻 Iara Silvia | Mãe, Guerreira e Aprendiz de Violino</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Outfit:wght@100;200;300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-trail" id="cursorTrail"></div>
+
+    <!-- Particle Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Musical Notes Animation Background -->
+    <div class="musical-notes" id="musicalNotes" aria-hidden="true"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-logo">
+            <span class="logo-icon">🎻</span>
+            <span class="logo-text">Iara Silvia</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="#home" class="nav-link active" data-section="home">Início</a>
+            <a href="#about" class="nav-link" data-section="about">Quem É Iara</a>
+            <a href="#journey" class="nav-link" data-section="journey">Jornada</a>
+            <a href="#gallery" class="nav-link" data-section="gallery">Galeria</a>
+            <a href="#inspirations" class="nav-link" data-section="inspirations">Inspirações</a>
+            <a href="#message" class="nav-link" data-section="message">Recado</a>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="hero-subtitle reveal-text" data-delay="0">✦ Uma homenagem para uma mulher extraordinária ✦</p>
+                <h1 class="hero-title">
+                    <span class="title-line reveal-text" data-delay="200">Iara Silvia</span>
+                    <span class="title-line title-script reveal-text" data-delay="400">Nascimento Saraiva Piquet</span>
+                </h1>
+                <p class="hero-description reveal-text" data-delay="600">
+                    Mãe dedicada. Servidora pública incansável. Estudante de Direito na UERJ. 
+                    E agora, corajosa aprendiz de violino. Porque para você, nunca é tarde 
+                    para começar um novo sonho. 🎻
+                </p>
+                <div class="hero-buttons reveal-text" data-delay="800">
+                    <a href="#about" class="btn btn-primary">
+                        <span>Conheça Sua História</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                    <a href="#message" class="btn btn-secondary">
+                        <span>Recado Especial</span>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image-wrapper reveal-text" data-delay="400">
+                <div class="hero-image-glow"></div>
+                <div class="hero-image-frame">
+                    <img src="violinist_hero_1784156434935.png" alt="A beleza do violino" class="hero-image" id="heroImage">
+                </div>
+                <div class="floating-badge badge-1">
+                    <span class="badge-number">💪</span>
+                    <span class="badge-label">Guerreira<br>Incansável</span>
+                </div>
+                <div class="floating-badge badge-2">
+                    <span class="badge-number">🎻</span>
+                    <span class="badge-label">Nova<br>Jornada</span>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator" id="scrollIndicator">
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+            <span>Role para baixo</span>
+        </div>
+        <!-- Audio Visualizer Bars -->
+        <div class="audio-visualizer" id="audioVisualizer">
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+        </div>
+    </section>
+
+    <!-- About Section — Quem é Iara -->
+    <section class="section about" id="about">
+        <div class="section-bg-pattern"></div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag scroll-reveal">Conheça</span>
+                <h2 class="section-title scroll-reveal">Quem É <span class="text-gradient">Iara Silvia</span></h2>
+                <div class="section-divider scroll-reveal">
+                    <span class="divider-note">♪</span>
+                </div>
+            </div>
+            <div class="about-grid">
+                <div class="about-image-col scroll-reveal">
+                    <div class="about-image-card">
+                        <img src="violin_closeup_1784156445150.png" alt="O violino — novo companheiro de jornada" class="about-img">
+                        <div class="about-image-overlay">
+                            <span class="overlay-text">Um novo capítulo começa</span>
+                        </div>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" data-icon="true">👩‍👧‍👦</span>
+                            <span class="stat-label">Mãe<br>Dedicada</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-icon="true">⚖️</span>
+                            <span class="stat-label">Estudante<br>de Direito</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" data-icon="true">🎻</span>
+                            <span class="stat-label">Aprendiz<br>de Violino</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-text-col scroll-reveal" data-delay="200">
+                    <h3 class="about-headline">Uma mulher que prova todos os dias que não existem limites</h3>
+                    <p class="about-text">
+                        Iara Silvia não é apenas uma pessoa — é uma força da natureza. Mãe presente e amorosa, 
+                        servidora pública comprometida, e estudante de Direito na <strong>UERJ</strong> — uma das 
+                        universidades mais prestigiadas do Brasil. Como se tudo isso já não fosse extraordinário 
+                        o suficiente, ela decidiu embarcar em uma nova aventura: <strong>aprender a tocar violino</strong>.
+                    </p>
+                    <p class="about-text">
+                        Porque Iara entende que a vida é feita de camadas, e cada nova habilidade, 
+                        cada novo desafio, adiciona uma melodia diferente à sinfonia que é a sua existência. 
+                        Aprender violino não é apenas sobre música — é sobre coragem, disciplina, 
+                        sensibilidade e a beleza de se permitir ser iniciante novamente.
+                    </p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">🏛️</div>
+                            <div class="feature-info">
+                                <h4>Servidora Pública</h4>
+                                <p>Servindo a sociedade com dedicação</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">📚</div>
+                            <div class="feature-info">
+                                <h4>Direito — UERJ</h4>
+                                <p>Construindo conhecimento jurídico</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🌟</div>
+                            <div class="feature-info">
+                                <h4>Aprendiz de Violino</h4>
+                                <p>Cada nota é uma vitória</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Section — A Jornada no Violino -->
+    <section class="section repertoire" id="journey">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag scroll-reveal">Evolução</span>
+                <h2 class="section-title scroll-reveal">A Jornada no <span class="text-gradient">Violino</span></h2>
+                <div class="section-divider scroll-reveal">
+                    <span class="divider-note">♫</span>
+                </div>
+                <p class="section-subtitle scroll-reveal" style="color: var(--color-text-secondary); max-width: 600px; margin: var(--space-xl) auto 0; line-height: 1.8;">
+                    Cada grande violinista já foi iniciante. Cada mestre já segurou o arco tremendo. 
+                    Essa jornada é sua, Iara — e cada passo conta.
+                </p>
+            </div>
+
+            <div class="repertoire-grid" id="repertoireGrid">
+                <div class="repertoire-card scroll-reveal" data-category="etapa">
+                    <div class="card-accent"></div>
+                    <div class="card-content">
+                        <div class="card-icon">🌱</div>
+                        <h3 class="card-title">O Primeiro Contato</h3>
+                        <p class="card-composer">Segurar o violino pela primeira vez, sentir o peso do arco, ouvir o primeiro som — mesmo que desafinado. Tudo começa aqui.</p>
+                        <span class="card-tag">O Começo</span>
+                    </div>
+                    <div class="card-hover-effect"></div>
+                </div>
+
+                <div class="repertoire-card scroll-reveal" data-category="etapa" data-delay="100">
+                    <div class="card-accent"></div>
+                    <div class="card-content">
+                        <div class="card-icon">🎯</div>
+                        <h3 class="card-title">As Primeiras Notas</h3>
+                        <p class="card-composer">Ré, Lá, Mi, Sol... Cada corda aberta é uma conquista. A postura vai melhorando, os dedos vão encontrando seu lugar.</p>
+                        <span class="card-tag">Fundamentos</span>
+                    </div>
+                    <div class="card-hover-effect"></div>
+                </div>
+
+                <div class="repertoire-card scroll-reveal" data-category="etapa" data-delay="200">
+                    <div class="card-accent"></div>
+                    <div class="card-content">
+                        <div class="card-icon">📖</div>
+                        <h3 class="card-title">Lendo Partituras</h3>
+                        <p class="card-composer">Uma nova linguagem se abre. As bolinhas no pentagrama começam a fazer sentido. É como aprender a ler de novo — e que leitura bonita!</p>
+                        <span class="card-tag">Teoria Musical</span>
+                    </div>
+                    <div class="card-hover-effect"></div>
+                </div>
+
+                <div class="repertoire-card scroll-reveal" data-category="etapa">
+                    <div class="card-accent"></div>
+                    <div class="card-content">
+                        <div class="card-icon">💪</div>
+                        <h3 class="card-title">Os Dias Difíceis</h3>
+                        <p class="card-composer">O dedo dói, o som não sai como quer, a frustração bate. Mas Iara sabe: os dias difíceis são os que mais ensinam.</p>
+                        <span class="card-tag">Resiliência</span>
+                    </div>
+                    <div class="card-hover-effect"></div>
+                </div>
+
+                <div class="repertoire-card scroll-reveal" data-category="etapa" data-delay="100">
+                    <div class="card-accent"></div>
+                    <div class="card-content">
+                        <div class="card-icon">🎵</div>
+                        <h3 class="card-title">A Primeira Melodia</h3>
+                        <p class="card-composer">Quando as notas se juntam e formam algo reconhecível... Não importa se é "Brilha, Brilha Estrelinha" — é MÚSICA. E é sua.</p>
+                        <span class="card-tag">Magia</span>
+                    </div>
+                    <div class="card-hover-effect"></div>
+                </div>
+
+                <div class="repertoire-card scroll-reveal" data-category="etapa" data-delay="200">
+                    <div class="card-accent"></div>
+                    <div class="card-content">
+                        <div class="card-icon">🚀</div>
+                        <h3 class="card-title">O Futuro é Brilhante</h3>
+                        <p class="card-composer">Um dia, Vivaldi. Um dia, Bach. Um dia, aquela música que fez você querer aprender. O caminho é longo — e é lindo.</p>
+                        <span class="card-tag">Sonho</span>
+                    </div>
+                    <div class="card-hover-effect"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section — Momentos -->
+    <section class="section gallery" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag scroll-reveal">Beleza</span>
+                <h2 class="section-title scroll-reveal">O Universo do <span class="text-gradient">Violino</span></h2>
+                <div class="section-divider scroll-reveal">
+                    <span class="divider-note">♩</span>
+                </div>
+            </div>
+            <div class="gallery-grid scroll-reveal">
+                <div class="gallery-item gallery-item-large" data-tilt data-sound="som_de_violino/adiiswanto-cvilni-violin-302859.mp3">
+                    <img src="violinist_hero_1784156434935.png" alt="A beleza de tocar violino" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="gallery-label">O Sonho</span>
+                        <p class="gallery-sublabel">🔊 Clique para ouvir o Violino</p>
+                    </div>
+                    <div class="sound-click-hint">🎵</div>
+                </div>
+                <div class="gallery-item" data-tilt data-sound="som_de_violino/audiolibraryinfinite-echo-violin-418240.mp3">
+                    <img src="violin_closeup_1784156445150.png" alt="Detalhe do instrumento" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="gallery-label">O Instrumento</span>
+                        <p class="gallery-sublabel">🔊 Clique para ouvir o Violino</p>
+                    </div>
+                    <div class="sound-click-hint">🎶</div>
+                </div>
+                <div class="gallery-item" data-tilt data-sound="som_de_violino/nastelbom-violin-299793.mp3">
+                    <img src="concert_stage_1784156453526.png" alt="O palco" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="gallery-label">O Futuro</span>
+                        <p class="gallery-sublabel">🔊 Clique para ouvir o Violino</p>
+                    </div>
+                    <div class="sound-click-hint">🎻</div>
+                </div>
+                <div class="gallery-item gallery-item-wide" data-tilt data-sound="som_de_violino/violin_la_440hz.wav">
+                    <img src="concert_stage_1784156453526.png" alt="Palco dos sonhos" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="gallery-label">Sem Limites</span>
+                        <p class="gallery-sublabel">🔊 Clique para ouvir o Violino</p>
+                    </div>
+                    <div class="sound-click-hint">♫</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sound Player Section — Ouça o Violino -->
+    <section class="section services" id="sounds">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag scroll-reveal">Ouça</span>
+                <h2 class="section-title scroll-reveal">Sons do <span class="text-gradient">Violino</span></h2>
+                <div class="section-divider scroll-reveal">
+                    <span class="divider-note">🔊</span>
+                </div>
+                <p class="section-subtitle scroll-reveal" style="color: var(--color-text-secondary); max-width: 550px; margin: var(--space-xl) auto 0; line-height: 1.8;">
+                    Clique para ouvir o som do violino. Feche os olhos, escute, e imagine: um dia, essa música vai sair das suas mãos, Iara!
+                </p>
+            </div>
+            <div class="services-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="service-card sound-card scroll-reveal" data-delay="0" id="soundCard1">
+                    <div class="service-icon-wrapper">
+                        <div class="service-icon sound-icon">🎵</div>
+                        <div class="service-glow"></div>
+                    </div>
+                    <h3>Melodia Clássica</h3>
+                    <p>Uma melodia delicada e envolvente. Esse é o tipo de beleza que o violino é capaz de criar — e que você vai alcançar.</p>
+                    <div class="sound-wave" id="soundWave1">
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                    </div>
+                    <button class="btn btn-secondary btn-sound" data-sound="som_de_violino/adiiswanto-cvilni-violin-302859.mp3" id="playBtn1">
+                        <span class="play-icon">▶</span>
+                        <span class="play-text">Ouvir Violino 1</span>
+                    </button>
+                    <div class="service-line"></div>
+                </div>
+                <div class="service-card sound-card scroll-reveal" data-delay="150" id="soundCard2">
+                    <div class="service-icon-wrapper">
+                        <div class="service-icon sound-icon">🎶</div>
+                        <div class="service-glow"></div>
+                    </div>
+                    <h3>Eco Infinito</h3>
+                    <p>Sons que ecoam como sentimentos. O violino traduz em vibrações o que o coração sente mas não consegue dizer.</p>
+                    <div class="sound-wave" id="soundWave2">
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                    </div>
+                    <button class="btn btn-secondary btn-sound" data-sound="som_de_violino/audiolibraryinfinite-echo-violin-418240.mp3" id="playBtn2">
+                        <span class="play-icon">▶</span>
+                        <span class="play-text">Ouvir Violino 2</span>
+                    </button>
+                    <div class="service-line"></div>
+                </div>
+                <div class="service-card sound-card scroll-reveal" data-delay="300" id="soundCard3">
+                    <div class="service-icon-wrapper">
+                        <div class="service-icon sound-icon">🎻</div>
+                        <div class="service-glow"></div>
+                    </div>
+                    <h3>Violino Solo</h3>
+                    <p>A pureza de um violino sozinho no palco. Esse som é a prova de que um único instrumento pode emocionar multidões.</p>
+                    <div class="sound-wave" id="soundWave3">
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                        <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                    </div>
+                    <button class="btn btn-secondary btn-sound" data-sound="som_de_violino/nastelbom-violin-299793.mp3" id="playBtn3">
+                        <span class="play-icon">▶</span>
+                        <span class="play-text">Ouvir Violino 3</span>
+                    </button>
+                    <div class="service-line"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee / Infinite Scroll Text -->
+    <div class="marquee-section">
+        <div class="marquee-track">
+            <div class="marquee-content">
+                <span>♪ Mãe</span>
+                <span>✦</span>
+                <span>♪ Guerreira</span>
+                <span>✦</span>
+                <span>♪ Servidora</span>
+                <span>✦</span>
+                <span>♪ Estudante</span>
+                <span>✦</span>
+                <span>♪ UERJ</span>
+                <span>✦</span>
+                <span>♪ Direito</span>
+                <span>✦</span>
+                <span>♪ Violinista</span>
+                <span>✦</span>
+                <span>♪ Inspiração</span>
+                <span>✦</span>
+            </div>
+            <div class="marquee-content" aria-hidden="true">
+                <span>♪ Mãe</span>
+                <span>✦</span>
+                <span>♪ Guerreira</span>
+                <span>✦</span>
+                <span>♪ Servidora</span>
+                <span>✦</span>
+                <span>♪ Estudante</span>
+                <span>✦</span>
+                <span>♪ UERJ</span>
+                <span>✦</span>
+                <span>♪ Direito</span>
+                <span>✦</span>
+                <span>♪ Violinista</span>
+                <span>✦</span>
+                <span>♪ Inspiração</span>
+                <span>✦</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inspirations Section — Frases Inspiradoras -->
+    <section class="section testimonials" id="inspirations">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag scroll-reveal">Motivação</span>
+                <h2 class="section-title scroll-reveal">Frases Para <span class="text-gradient">Te Inspirar</span></h2>
+                <div class="section-divider scroll-reveal">
+                    <span class="divider-note">♬</span>
+                </div>
+            </div>
+            <div class="testimonials-slider" id="testimonialsSlider">
+                <div class="testimonial-card active scroll-reveal">
+                    <div class="testimonial-stars">✨✨✨✨✨</div>
+                    <blockquote class="testimonial-text">
+                        "Não é preciso ser perfeita para começar, mas é preciso começar para um dia 
+                        ser incrível. O violino não pede perfeição — pede paciência, amor e coragem. 
+                        E coragem, Iara, é o que não te falta."
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">🎻</div>
+                        <div class="author-info">
+                            <strong>Para a Aprendiz</strong>
+                            <span>Cada prática é uma vitória</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card scroll-reveal" data-delay="150">
+                    <div class="testimonial-stars">✨✨✨✨✨</div>
+                    <blockquote class="testimonial-text">
+                        "O sucesso não é um ponto de chegada, é a jornada inteira. Ser mãe, trabalhar, 
+                        estudar Direito na UERJ e AINDA ter a coragem de aprender violino? 
+                        Isso é o que se chama de mulher extraordinária."
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">💎</div>
+                        <div class="author-info">
+                            <strong>Para a Guerreira</strong>
+                            <span>Você é exemplo para muitos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card scroll-reveal" data-delay="300">
+                    <div class="testimonial-stars">✨✨✨✨✨</div>
+                    <blockquote class="testimonial-text">
+                        "A música não julga. Não importa a idade, não importa a experiência. 
+                        O violino só pede uma coisa: que você não desista. E quem conhece 
+                        Iara Silvia sabe — desistir nunca foi opção."
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">🌟</div>
+                        <div class="author-info">
+                            <strong>Para a Sonhadora</strong>
+                            <span>Os sonhos não têm prazo de validade</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reasons Section — Por que o Violino -->
+    <section class="section services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag scroll-reveal">Razões</span>
+                <h2 class="section-title scroll-reveal">Por Que o Violino É <span class="text-gradient">Perfeito Para Você</span></h2>
+                <div class="section-divider scroll-reveal">
+                    <span class="divider-note">♪</span>
+                </div>
+            </div>
+            <div class="services-grid">
+                <div class="service-card scroll-reveal" data-delay="0">
+                    <div class="service-icon-wrapper">
+                        <div class="service-icon">🧠</div>
+                        <div class="service-glow"></div>
+                    </div>
+                    <h3>Exercita a Mente</h3>
+                    <p>Estudos comprovam: aprender um instrumento melhora memória, concentração e raciocínio. Perfeito para quem estuda Direito!</p>
+                    <div class="service-line"></div>
+                </div>
+                <div class="service-card scroll-reveal" data-delay="150">
+                    <div class="service-icon-wrapper">
+                        <div class="service-icon">💆</div>
+                        <div class="service-glow"></div>
+                    </div>
+                    <h3>Alivia o Estresse</h3>
+                    <p>Depois de um dia entre processos, aulas e a rotina de mãe, o violino é um refúgio. A música acalma a alma como nada mais.</p>
+                    <div class="service-line"></div>
+                </div>
+                <div class="service-card scroll-reveal" data-delay="300">
+                    <div class="service-icon-wrapper">
+                        <div class="service-icon">🦋</div>
+                        <div class="service-glow"></div>
+                    </div>
+                    <h3>Prova Que Você Pode</h3>
+                    <p>Aprender algo novo em qualquer fase da vida é um ato revolucionário. É dizer ao mundo: "Eu não me limito."</p>
+                    <div class="service-line"></div>
+                </div>
+                <div class="service-card scroll-reveal" data-delay="450">
+                    <div class="service-icon-wrapper">
+                        <div class="service-icon">❤️</div>
+                        <div class="service-glow"></div>
+                    </div>
+                    <h3>Inspira Quem Ama Você</h3>
+                    <p>Seus filhos veem. Sua família vê. E todos aprendem com seu exemplo: nunca é tarde para perseguir um sonho.</p>
+                    <div class="service-line"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Message Section — Recado Especial -->
+    <section class="section contact" id="message">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag scroll-reveal">Com Amor</span>
+                <h2 class="section-title scroll-reveal">Um Recado <span class="text-gradient">Especial</span></h2>
+                <div class="section-divider scroll-reveal">
+                    <span class="divider-note">♫</span>
+                </div>
+            </div>
+            <div class="message-container">
+                <div class="love-letter scroll-reveal">
+                    <div class="letter-decoration">💌</div>
+                    <div class="letter-content">
+                        <p class="letter-greeting">Querida Iara Silvia,</p>
+                        <p class="letter-body">
+                            Este site foi feito especialmente para você — para que nos dias em que a corda desafinar, 
+                            nos dias em que o arco parecer pesado demais, nos dias em que você pensar em desistir... 
+                            você abra esta página e lembre quem você é.
+                        </p>
+                        <p class="letter-body">
+                            Você é a mulher que equilibra ser <strong>mãe</strong> com uma dedicação que inspira. 
+                            Que serve ao público com compromisso e dignidade como <strong>servidora pública</strong>. 
+                            Que decidiu estudar <strong>Direito na UERJ</strong> — e está conquistando cada semestre. 
+                            E que agora, como se tudo isso não bastasse, pegou um violino e disse: 
+                            <em>"Eu também quero fazer música."</em>
+                        </p>
+                        <p class="letter-body">
+                            Sabe o que isso é? Isso é <strong>extraordinário</strong>.
+                        </p>
+                        <p class="letter-body">
+                            Não importa se a nota saiu errada. Não importa se o vizinho reclamou. 
+                            Não importa se você acha que começou tarde. Você começou. E isso é tudo o que importa. 
+                            Cada minuto que você dedica ao violino é um presente que você dá a si mesma.
+                        </p>
+                        <p class="letter-body">
+                            Continue tocando, Iara. Continue tentando. Continue sendo essa mulher 
+                            incrível que transforma tudo o que toca — inclusive as cordas de um violino — em algo especial.
+                        </p>
+                        <p class="letter-signature">
+                            Com todo o amor e admiração do mundo,<br>
+                            <span class="signature-heart">❤️</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Daily Motivation Generator -->
+                <div class="motivation-box scroll-reveal" data-delay="200">
+                    <div class="motivation-header">
+                        <span class="motivation-icon">🎻</span>
+                        <h3>Sua Motivação de Hoje</h3>
+                    </div>
+                    <p class="motivation-quote" id="dailyQuote">
+                        "A música expressa aquilo que não pode ser dito e sobre o que é impossível ficar em silêncio."
+                    </p>
+                    <p class="motivation-author" id="quoteAuthor">— Victor Hugo</p>
+                    <button class="btn btn-primary btn-motivation" id="newQuoteBtn">
+                        <span>Nova Inspiração</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 4v6h-6M1 20v-6h6"/>
+                            <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+                        </svg>
+                    </button>
+
+                    <!-- Practice Tracker -->
+                    <div class="practice-tracker">
+                        <h4>🎯 Contador de Práticas</h4>
+                        <p class="practice-subtitle">Cada vez que praticar, clique no botão!</p>
+                        <div class="practice-counter">
+                            <span class="practice-number" id="practiceCount">0</span>
+                            <span class="practice-label">práticas realizadas</span>
+                        </div>
+                        <button class="btn btn-secondary btn-practice" id="practiceBtn">
+                            <span>🎻 Pratiquei Hoje!</span>
+                        </button>
+                        <div class="practice-celebration" id="practiceCelebration"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-wave">
+            <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+                <path d="M0,64L48,58.7C96,53,192,43,288,48C384,53,480,75,576,80C672,85,768,75,864,64C960,53,1056,43,1152,42.7C1248,43,1344,53,1392,58.7L1440,64L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z" fill="currentColor"/>
+            </svg>
+        </div>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">🎻 Iara Silvia</span>
+                <p>Mãe. Servidora Pública. Estudante de Direito na UERJ. Aprendiz de Violino. Inspiração.</p>
+            </div>
+            <div class="footer-links-group">
+                <h4>Navegação</h4>
+                <a href="#home">Início</a>
+                <a href="#about">Quem É Iara</a>
+                <a href="#journey">Jornada</a>
+                <a href="#inspirations">Inspirações</a>
+            </div>
+            <div class="footer-links-group">
+                <h4>Lembre-se</h4>
+                <a href="#message">Você é incrível 💛</a>
+                <a href="#journey">Cada nota conta 🎵</a>
+                <a href="#services">Nunca é tarde 🌟</a>
+                <a href="#inspirations">Continue sonhando ✨</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Feito com ❤️ para Iara Silvia Nascimento Saraiva Piquet — a mulher mais incrível do mundo.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-violin">🎻</div>
+            <div class="loading-bars">
+                <div class="loading-bar"></div>
+                <div class="loading-bar"></div>
+                <div class="loading-bar"></div>
+                <div class="loading-bar"></div>
+                <div class="loading-bar"></div>
+            </div>
+            <p class="loading-text">Preparando algo especial para Iara...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
