@@ -802,6 +802,53 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ─── Hero Title Typewriter Effect (Partitura) ───
+    const heroTitleWrapper = document.getElementById('heroTitleWrapper');
+    const heroTitleName = document.getElementById('heroTitleName');
+    const heroTitleLastname = document.getElementById('heroTitleLastname');
+
+    if (heroTitleWrapper && heroTitleName && heroTitleLastname) {
+        const fullText1 = heroTitleName.textContent;
+        const fullText2 = heroTitleLastname.textContent;
+        
+        let isTyping = false;
+
+        heroTitleWrapper.addEventListener('click', () => {
+            if (isTyping) return;
+            isTyping = true;
+            
+            // Tocar som de violino
+            const violinSound = document.getElementById('audio_violino_1');
+            if (violinSound) {
+                stopAllAudio();
+                violinSound.currentTime = 0;
+                violinSound.play().catch(e => console.log('Erro ao tocar som:', e));
+            }
+
+            heroTitleName.textContent = '';
+            heroTitleLastname.textContent = '';
+
+            let i = 0;
+            const typeWriter1 = setInterval(() => {
+                heroTitleName.textContent += fullText1.charAt(i);
+                i++;
+                if (i >= fullText1.length) {
+                    clearInterval(typeWriter1);
+                    
+                    let j = 0;
+                    const typeWriter2 = setInterval(() => {
+                        heroTitleLastname.textContent += fullText2.charAt(j);
+                        j++;
+                        if (j >= fullText2.length) {
+                            clearInterval(typeWriter2);
+                            isTyping = false;
+                        }
+                    }, 100);
+                }
+            }, 100);
+        });
+    }
+
     // ─── Video Carousel Logic ───
     const videoSlides = document.querySelectorAll('.video-slide');
     const prevBtn = document.querySelector('.prev-btn');
