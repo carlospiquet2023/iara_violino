@@ -813,7 +813,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let isTyping = false;
 
-        heroTitleWrapper.addEventListener('click', () => {
+        const playTypewriterEffect = () => {
             if (isTyping) return;
             isTyping = true;
             
@@ -842,11 +842,27 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (j >= fullText2.length) {
                             clearInterval(typeWriter2);
                             isTyping = false;
+                            // Para o som assim que completar o nome
+                            if (violinSound) {
+                                let fadeOut = setInterval(() => {
+                                    if (violinSound.volume > 0.1) {
+                                        violinSound.volume -= 0.1;
+                                    } else {
+                                        clearInterval(fadeOut);
+                                        violinSound.pause();
+                                        violinSound.currentTime = 0;
+                                        violinSound.volume = 1;
+                                    }
+                                }, 100);
+                            }
                         }
                     }, 100);
                 }
             }, 100);
-        });
+        };
+
+        heroTitleWrapper.addEventListener('mouseenter', playTypewriterEffect);
+        heroTitleWrapper.addEventListener('touchstart', playTypewriterEffect);
     }
 
     // ─── Video Carousel Logic ───
