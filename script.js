@@ -704,116 +704,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ════════════════════════════════════════════════
-    // 🎻 VIOLIN SYNTHESIZER — WEB AUDIO API
-    // Works 100% without external files!
+    // 🔊 AUDIO PLAYER (MP3/WAV ORIGINAL FILES)
     // ════════════════════════════════════════════════
 
-    let audioCtx = null;
-
-    function getAudioContext() {
-        if (!audioCtx) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
-        return audioCtx;
-    }
-
-    /**
-     * Synthesize a realistic violin note using Web Audio API
-     * @param {number} frequency - Note frequency in Hz
-     * @param {number} duration - Duration in seconds
-     */
-    function playViolinNote(frequency, duration = 2.5) {
-        const ctx = getAudioContext();
-        const now = ctx.currentTime;
-
-        // Master gain
-        const masterGain = ctx.createGain();
-        masterGain.connect(ctx.destination);
-
-        // Violin harmonic profile — multiple oscillators for rich timbre
-        const harmonics = [
-            { ratio: 1,   gain: 1.0,  type: 'sawtooth' },  // Fundamental
-            { ratio: 2,   gain: 0.6,  type: 'sine' },      // 2nd harmonic
-            { ratio: 3,   gain: 0.4,  type: 'sine' },      // 3rd harmonic
-            { ratio: 4,   gain: 0.25, type: 'sine' },      // 4th harmonic
-            { ratio: 5,   gain: 0.15, type: 'sine' },      // 5th harmonic
-            { ratio: 6,   gain: 0.08, type: 'sine' },      // 6th harmonic
-        ];
-
-        const oscillators = [];
-        const gains = [];
-
-        harmonics.forEach(h => {
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-
-            osc.type = h.type;
-            osc.frequency.setValueAtTime(frequency * h.ratio, now);
-
-            // Add vibrato (pitch modulation) — characteristic of violin
-            const vibrato = ctx.createOscillator();
-            const vibratoGain = ctx.createGain();
-            vibrato.frequency.setValueAtTime(5.5, now);  // ~5.5 Hz vibrato rate
-            vibratoGain.gain.setValueAtTime(frequency * h.ratio * 0.005, now); // subtle pitch variation
-            vibrato.connect(vibratoGain);
-            vibratoGain.connect(osc.frequency);
-            vibrato.start(now + 0.3);  // Vibrato starts after attack
-            vibrato.stop(now + duration);
-
-            gain.gain.setValueAtTime(0, now);
-
-            // ADSR Envelope
-            const attackTime = 0.12;
-            const decayTime = 0.2;
-            const sustainLevel = h.gain * 0.35;
-            const releaseTime = 0.5;
-
-            // Attack
-            gain.gain.linearRampToValueAtTime(h.gain * 0.5, now + attackTime);
-            // Decay
-            gain.gain.linearRampToValueAtTime(sustainLevel, now + attackTime + decayTime);
-            // Sustain (hold)
-            gain.gain.setValueAtTime(sustainLevel, now + duration - releaseTime);
-            // Release
-            gain.gain.linearRampToValueAtTime(0, now + duration);
-
-            osc.connect(gain);
-            gain.connect(masterGain);
-
-            osc.start(now);
-            osc.stop(now + duration + 0.1);
-
-            oscillators.push(osc);
-            gains.push(gain);
-        });
-
-        // Apply a low-pass filter to soften the sound (more violin-like)
-        const filter = ctx.createBiquadFilter();
-        filter.type = 'lowpass';
-        filter.frequency.setValueAtTime(frequency * 6, now);
-        filter.Q.setValueAtTime(0.7, now);
-
-        // Reconnect through filter
-        masterGain.disconnect();
-        masterGain.connect(filter);
-        filter.connect(ctx.destination);
-
-        // Master volume envelope
-        masterGain.gain.setValueAtTime(0.3, now);
-
-        return { oscillators, duration };
-    }
-
-    // ════════════════════════════════════════════════
-    // 🖼️ GALLERY — CLICK ON PHOTOS TO PLAY NOTES
-    // ════════════════════════════════════════════════
-
-    const galleryItems = document.querySelectorAll('.gallery-item[data-sound]');
-    let currentGalleryAudio = null;
+    let currentAudio = null;
     let currentGalleryItem = null;
+    let currentPlayingCard = null;
+
+    function stopAllAudio() {
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            currentAudio = null;
+        }
+
+        // Reset gallery items
+        if (currentGalleryItem) {
+            currentGalleryItem.classList.remove('note-playing');
+            const popup = currentGalleryItem.querySelector('.note-name-popup');
+            if (popup) popup.remove();
+            currentGalleryItem = null;
+        }
+
+        // Reset sound cards
+        if (currentPlayingCard) {
+            currentPlayingCard.classList.remove('playing');
+            const btn = currentPlayingCard.querySelector('.btn-sound');
+            if (btn) {
+                const playIcon = btn.querySelector('.play-icon');
+                const playText = btn.querySelector('.play-text');
+                if (playIcon) playIcon.textContent = '▶';
+                if (playText) {
+                    const btnId = btn.id;
+                    if (btnId === 'playBtn1') playText.textContent = 'Ouvir Violino 1';
+                    else if (btnId === 'playBtn2') playText.textContent = 'Ouvir Violino 2';
+                    else if (btnId === 'playBtn3') playText.textContent = 'Ouvir Violino 3';
+                }
+            }
+            currentPlayingCard = null;
+        }
+    }
+
+    // ─── GALLERY AUDIO ───
+    const galleryItems = document.querySelectorAll('.gallery-item[data-sound]');
 
     galleryItems.forEach(item => {
         item.style.cursor = 'pointer';
@@ -822,22 +755,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const soundSrc = item.dataset.sound;
             
             if (currentGalleryItem === item) {
-                stopGallerySound();
+                stopAllAudio();
                 return;
             }
 
-            stopGallerySound();
+            stopAllAudio();
 
-            currentGalleryAudio = new Audio(soundSrc);
+            currentAudio = new Audio(soundSrc);
             currentGalleryItem = item;
 
-            // Visual feedback — glowing border
+            // Visual feedback
             item.classList.add('note-playing');
-
-            // Show note name popup
-            const existingPopup = item.querySelector('.note-name-popup');
-            if (existingPopup) existingPopup.remove();
-
             const popup = document.createElement('div');
             popup.className = 'note-name-popup';
             popup.innerHTML = `
@@ -846,142 +774,55 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             item.appendChild(popup);
 
-            currentGalleryAudio.play().catch(err => {
+            currentAudio.play().catch(err => {
                 console.log('Audio play error:', err);
-                stopGallerySound();
+                stopAllAudio();
             });
 
-            currentGalleryAudio.addEventListener('ended', () => {
-                stopGallerySound();
+            currentAudio.addEventListener('ended', () => {
+                stopAllAudio();
             });
         });
     });
 
-    function stopGallerySound() {
-        if (currentGalleryAudio) {
-            currentGalleryAudio.pause();
-            currentGalleryAudio.currentTime = 0;
-            currentGalleryAudio = null;
-        }
-        if (currentGalleryItem) {
-            currentGalleryItem.classList.remove('note-playing');
-            const popup = currentGalleryItem.querySelector('.note-name-popup');
-            if (popup) popup.remove();
-            currentGalleryItem = null;
-        }
-    }
-
-    // ════════════════════════════════════════════════
-    // 🔊 SOUND CARDS — PLAY LONGER MELODIES
-    // ════════════════════════════════════════════════
-
-    let currentPlayingCard = null;
-    let currentMelodyTimeout = null;
-
-    // Simple melodies for each card (arrays of [frequency, duration] pairs)
-    const melodies = {
-        playBtn1: [
-            [440, 0.6], [494, 0.6], [523, 0.6], [587, 0.6], 
-            [659, 0.8], [587, 0.4], [523, 0.8], [440, 1.0]
-        ],
-        playBtn2: [
-            [330, 0.8], [392, 0.4], [440, 0.6], [523, 0.8], 
-            [494, 0.4], [440, 0.6], [392, 0.8], [330, 1.0]
-        ],
-        playBtn3: [
-            [659, 0.5], [587, 0.5], [523, 0.5], [494, 0.5],
-            [440, 0.5], [494, 0.5], [523, 0.5], [659, 1.0]
-        ],
-    };
-
+    // ─── SOUND CARDS AUDIO ───
     const soundButtons = document.querySelectorAll('.btn-sound');
 
     soundButtons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
+            const soundSrc = btn.dataset.sound;
             const card = btn.closest('.sound-card');
-            const playIcon = btn.querySelector('.play-icon');
-            const playText = btn.querySelector('.play-text');
-            const btnId = btn.id;
-
-            // If this card is already playing, stop
+            
             if (currentPlayingCard === card) {
-                stopMelody(card, btn);
+                stopAllAudio();
                 return;
             }
 
-            // Stop any previous melody
-            if (currentPlayingCard) {
-                const prevBtn = currentPlayingCard.querySelector('.btn-sound');
-                stopMelody(currentPlayingCard, prevBtn);
-            }
+            stopAllAudio();
 
-            // Play melody
+            currentAudio = new Audio(soundSrc);
             currentPlayingCard = card;
+
+            // Visual feedback
             card.classList.add('playing');
-            playIcon.textContent = '⏸';
-            playText.textContent = 'Tocando...';
-
-            const melody = melodies[btnId] || melodies.playBtn1;
-            playMelody(melody, card, btn);
-        });
-    });
-
-    function playMelody(notes, card, btn) {
-        let delay = 0;
-        const timeouts = [];
-
-        notes.forEach(([freq, dur], index) => {
-            const t = setTimeout(() => {
-                playViolinNote(freq, dur);
-            }, delay * 1000);
-            timeouts.push(t);
-            delay += dur;
-        });
-
-        // When melody ends, reset the card
-        const totalDuration = delay + 0.5; // extra time for last note to fade
-        currentMelodyTimeout = setTimeout(() => {
-            stopMelody(card, btn);
-        }, totalDuration * 1000);
-
-        // Store timeouts for cleanup
-        card._melodyTimeouts = timeouts;
-    }
-
-    function stopMelody(card, btn) {
-        if (!card) return;
-
-        card.classList.remove('playing');
-        if (btn) {
             const playIcon = btn.querySelector('.play-icon');
             const playText = btn.querySelector('.play-text');
-            if (playIcon) playIcon.textContent = '▶';
-            if (playText) {
-                const btnId = btn.id;
-                if (btnId === 'playBtn1') playText.textContent = 'Ouvir Violino 1';
-                else if (btnId === 'playBtn2') playText.textContent = 'Ouvir Violino 2';
-                else if (btnId === 'playBtn3') playText.textContent = 'Ouvir Violino 3';
-            }
-        }
+            if (playIcon) playIcon.textContent = '⏸';
+            if (playText) playText.textContent = 'Tocando...';
 
-        // Clear pending notes
-        if (card._melodyTimeouts) {
-            card._melodyTimeouts.forEach(t => clearTimeout(t));
-            card._melodyTimeouts = null;
-        }
-        if (currentMelodyTimeout) {
-            clearTimeout(currentMelodyTimeout);
-            currentMelodyTimeout = null;
-        }
+            currentAudio.play().catch(err => {
+                console.log('Audio play error:', err);
+                stopAllAudio();
+            });
 
-        if (currentPlayingCard === card) {
-            currentPlayingCard = null;
-        }
-    }
+            currentAudio.addEventListener('ended', () => {
+                stopAllAudio();
+            });
+        });
+    });
 
     console.log('🎻 Site da Iara Silvia carregado com sucesso!');
     console.log('❤️ Feito com muito amor.');
     console.log('✨ Continue tocando, Iara. O mundo precisa da sua música.');
 });
-
