@@ -813,16 +813,24 @@ document.addEventListener('DOMContentLoaded', () => {
         
         let isTyping = false;
 
-        const playTypewriterEffect = () => {
-            if (isTyping) return;
+        const playTypewriterEffect = (e) => {
+            const violinSound = document.getElementById('audio_violino_1');
+
+            // Se já está digitando, mas foi um clique, tenta forçar o áudio (burla o bloqueio de hover do navegador)
+            if (isTyping) {
+                if (e.type === 'click' && violinSound && violinSound.paused) {
+                    violinSound.play().catch(err => console.log('Erro:', err));
+                }
+                return;
+            }
+
             isTyping = true;
             
             // Tocar som de violino
-            const violinSound = document.getElementById('audio_violino_1');
             if (violinSound) {
                 stopAllAudio();
                 violinSound.currentTime = 0;
-                violinSound.play().catch(e => console.log('Erro ao tocar som:', e));
+                violinSound.play().catch(err => console.log('Autoplay bloqueado pelo navegador:', err));
             }
 
             heroTitleName.textContent = '';
@@ -862,6 +870,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         heroTitleWrapper.addEventListener('mouseenter', playTypewriterEffect);
+        heroTitleWrapper.addEventListener('click', playTypewriterEffect);
         heroTitleWrapper.addEventListener('touchstart', playTypewriterEffect);
     }
 
