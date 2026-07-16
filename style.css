@@ -141,7 +141,8 @@ a:hover {
 }
 
 .container {
-    max-width: 1280px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--space-xl);
 }
@@ -2612,5 +2613,12 @@ a:hover {
 
     html {
         scroll-behavior: auto;
+    }
+}
+
+/* ─── Large Screens Responsiveness ─── */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1320px;
     }
 }
