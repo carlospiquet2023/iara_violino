@@ -428,29 +428,66 @@
                     Acompanhe o progresso e os momentos musicais através destes registros em vídeo.
                 </p>
             </div>
-            <div class="videos-grid scroll-reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl);">
-                <!-- Vídeo 1 -->
-                <div class="video-item" style="border-radius: var(--radius-lg); overflow: hidden; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
-                    <video controls style="width: 100%; height: auto; display: block; aspect-ratio: 16/9; background: #000; object-fit: cover;">
-                        <source src="videos/WhatsApp Video 2026-07-15 at 12.58.54.mp4" type="video/mp4">
-                        Seu navegador não suporta o elemento de vídeo.
-                    </video>
-                    <div style="padding: var(--space-md);">
-                        <h3 style="margin-bottom: var(--space-xs); font-size: 1.2rem;">Momentos Especiais 1</h3>
-                        <p style="color: var(--color-text-secondary); font-size: 0.9rem;">Registrando cada nota.</p>
+            <div class="video-carousel-container scroll-reveal" id="videoCarousel">
+                <button class="video-nav-btn prev-btn" aria-label="Vídeo anterior">❮</button>
+                <div class="video-slides-wrapper">
+                    <!-- Vídeo 1 -->
+                    <div class="video-slide active">
+                        <video controls preload="metadata">
+                            <source src="videos/WhatsApp Video 2026-07-15 at 12.58.54.mp4" type="video/mp4">
+                            Seu navegador não suporta o elemento de vídeo.
+                        </video>
+                        <div class="video-caption">
+                            <h3>Primeiros Passos</h3>
+                            <p>Registrando cada nota da jornada.</p>
+                        </div>
+                    </div>
+                    <!-- Vídeo 2 -->
+                    <div class="video-slide">
+                        <video controls preload="metadata">
+                            <source src="videos/02.mp4" type="video/mp4">
+                            Seu navegador não suporta o elemento de vídeo.
+                        </video>
+                        <div class="video-caption">
+                            <h3>Avançando</h3>
+                            <p>O progresso não tem fim.</p>
+                        </div>
+                    </div>
+                    <!-- Vídeo 3 -->
+                    <div class="video-slide">
+                        <video controls preload="metadata">
+                            <source src="videos/03.mp4" type="video/mp4">
+                            Seu navegador não suporta o elemento de vídeo.
+                        </video>
+                        <div class="video-caption">
+                            <h3>Dedicação</h3>
+                            <p>A música transforma.</p>
+                        </div>
+                    </div>
+                    <!-- Vídeo 4 -->
+                    <div class="video-slide">
+                        <video controls preload="metadata">
+                            <source src="videos/04.mp4" type="video/mp4">
+                            Seu navegador não suporta o elemento de vídeo.
+                        </video>
+                        <div class="video-caption">
+                            <h3>Foco na Evolução</h3>
+                            <p>Cada treino conta.</p>
+                        </div>
+                    </div>
+                    <!-- Vídeo 5 -->
+                    <div class="video-slide">
+                        <video controls preload="metadata">
+                            <source src="videos/05.mp4" type="video/mp4">
+                            Seu navegador não suporta o elemento de vídeo.
+                        </video>
+                        <div class="video-caption">
+                            <h3>Música no Coração</h3>
+                            <p>A arte de tocar violino.</p>
+                        </div>
                     </div>
                 </div>
-                <!-- Vídeo 2 -->
-                <div class="video-item" style="border-radius: var(--radius-lg); overflow: hidden; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);">
-                    <video controls style="width: 100%; height: auto; display: block; aspect-ratio: 16/9; background: #000; object-fit: cover;">
-                        <source src="videos/02.mp4" type="video/mp4">
-                        Seu navegador não suporta o elemento de vídeo.
-                    </video>
-                    <div style="padding: var(--space-md);">
-                        <h3 style="margin-bottom: var(--space-xs); font-size: 1.2rem;">Momentos Especiais 2</h3>
-                        <p style="color: var(--color-text-secondary); font-size: 0.9rem;">O progresso não tem fim.</p>
-                    </div>
-                </div>
+                <button class="video-nav-btn next-btn" aria-label="Próximo vídeo">❯</button>
             </div>
         </div>
     </section>

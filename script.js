@@ -802,6 +802,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // ─── Video Carousel Logic ───
+    const videoSlides = document.querySelectorAll('.video-slide');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+
+    if (videoSlides.length > 0 && prevBtn && nextBtn) {
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            videoSlides.forEach(slide => {
+                slide.classList.remove('active');
+                const video = slide.querySelector('video');
+                if (video) {
+                    video.pause(); // Pause video when changing slides
+                }
+            });
+
+            currentSlide = index;
+            if (currentSlide >= videoSlides.length) {
+                currentSlide = 0; // Volta pro primeiro
+            } else if (currentSlide < 0) {
+                currentSlide = videoSlides.length - 1; // Vai pro último
+            }
+
+            videoSlides[currentSlide].classList.add('active');
+        }
+
+        nextBtn.addEventListener('click', () => {
+            showSlide(currentSlide + 1);
+        });
+
+        prevBtn.addEventListener('click', () => {
+            showSlide(currentSlide - 1);
+        });
+    }
+
     console.log('🎻 Site da Iara Silvia carregado com sucesso!');
     console.log('❤️ Feito com muito amor.');
     console.log('✨ Continue tocando, Iara. O mundo precisa da sua música.');
