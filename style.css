@@ -1506,8 +1506,8 @@ a:hover {
 
 .testimonials-slider {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-xl);
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
 }
 
 .testimonial-card {
@@ -1515,8 +1515,8 @@ a:hover {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--color-glass-border);
-    border-radius: var(--radius-xl);
-    padding: var(--space-2xl);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
     transition: all var(--transition-base);
     position: relative;
 }
@@ -1524,10 +1524,10 @@ a:hover {
 .testimonial-card::before {
     content: '"';
     position: absolute;
-    top: 15px;
-    left: 20px;
+    top: 10px;
+    left: 15px;
     font-family: var(--font-display);
-    font-size: 5rem;
+    font-size: 4rem;
     color: var(--color-accent);
     opacity: 0.15;
     line-height: 1;
@@ -1535,24 +1535,24 @@ a:hover {
 
 .testimonial-card:hover {
     border-color: var(--color-accent);
-    transform: translateY(-8px);
+    transform: translateY(-5px);
     box-shadow: var(--shadow-gold);
 }
 
 .testimonial-stars {
     color: var(--color-accent);
-    font-size: 1.2rem;
-    margin-bottom: var(--space-lg);
-    letter-spacing: 4px;
+    font-size: 1rem;
+    margin-bottom: var(--space-md);
+    letter-spacing: 2px;
 }
 
 .testimonial-text {
     font-family: var(--font-display);
-    font-size: 1.05rem;
+    font-size: 0.9rem;
     font-style: italic;
     color: var(--color-text-secondary);
-    line-height: 1.8;
-    margin-bottom: var(--space-xl);
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
     border: none;
 }
 
