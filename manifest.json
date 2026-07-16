@@ -1,0 +1,18 @@
+{
+  "name": "Iara Violino",
+  "short_name": "Iara",
+  "description": "Uma jornada musical de coragem, disciplina e beleza.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#0a0a0f",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "imagens/app-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

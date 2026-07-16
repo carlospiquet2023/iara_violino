@@ -117,11 +117,20 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     cursor: none;
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 ::selection {
     background: rgba(212, 169, 55, 0.3);
     color: var(--color-gold-100);
+}
+
+/* Prevent accidental text selection on UI elements to simulate native app feel */
+.btn, .nav-links a, .service-card, .stat-item, .repertoire-card, .logo-text, .section-tag {
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
 }
 
 img {
