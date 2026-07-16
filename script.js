@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ─── Floating Musical Notes ───
     const musicalNotes = document.getElementById('musicalNotes');
-    const noteSymbols = ['♪', '♫', '♬', '♩', '𝄞', '𝅘𝅥𝅮', '♭', '♯', '❤️', '✨', '🎻'];
+    const noteSymbols = ['♪', '♫', '♬', '♩', '✧', '✦', '✨'];
 
     function createMusicalNote() {
         const note = document.createElement('span');
@@ -381,33 +381,7 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     document.head.appendChild(style);
 
-    // ─── Text Scramble on Hero Title ───
-    const heroTitle = document.querySelector('.title-script');
-    if (heroTitle) {
-        const originalText = heroTitle.textContent;
-        const chars = '♪♫♬♩𝄞♭♯🎵🎶❤️✨';
-
-        heroTitle.addEventListener('mouseenter', () => {
-            let iterations = 0;
-            const interval = setInterval(() => {
-                heroTitle.textContent = originalText
-                    .split('')
-                    .map((char, index) => {
-                        if (index < iterations) return originalText[index];
-                        return chars[Math.floor(Math.random() * chars.length)];
-                    })
-                    .join('');
-
-                iterations += 1 / 2;
-
-                if (iterations >= originalText.length) {
-                    clearInterval(interval);
-                    heroTitle.textContent = originalText;
-                }
-            }, 40);
-        });
-    }
-
+    // Text Scramble effect removed to prevent layout thrashing and encoding issues.
     // ─── Loading Text Animation ───
     const loadingText = document.querySelector('.loading-text');
     if (loadingText) {
