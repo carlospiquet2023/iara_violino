@@ -753,6 +753,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         item.addEventListener('click', () => {
             const soundSrc = item.dataset.sound;
+            const targetAudioElement = document.getElementById(soundSrc);
             
             if (currentGalleryItem === item) {
                 stopAllAudio();
@@ -761,27 +762,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
             stopAllAudio();
 
-            currentAudio = new Audio(soundSrc);
-            currentGalleryItem = item;
+            if (targetAudioElement) {
+                currentAudio = targetAudioElement;
+                currentGalleryItem = item;
 
-            // Visual feedback
-            item.classList.add('note-playing');
-            const popup = document.createElement('div');
-            popup.className = 'note-name-popup';
-            popup.innerHTML = `
-                <span class="popup-note">♪ Tocando</span>
-                <span class="popup-label">Som do Violino</span>
-            `;
-            item.appendChild(popup);
+                // Visual feedback
+                item.classList.add('note-playing');
+                const popup = document.createElement('div');
+                popup.className = 'note-name-popup';
+                popup.innerHTML = `
+                    <span class="popup-note">♪ Tocando</span>
+                    <span class="popup-label">Som do Violino</span>
+                `;
+                item.appendChild(popup);
 
-            currentAudio.play().catch(err => {
-                console.log('Audio play error:', err);
-                stopAllAudio();
-            });
+                currentAudio.play().catch(err => {
+                    console.log('Audio play error:', err);
+                    stopAllAudio();
+                });
 
-            currentAudio.addEventListener('ended', () => {
-                stopAllAudio();
-            });
+                currentAudio.addEventListener('ended', () => {
+                    stopAllAudio();
+                });
+            }
         });
     });
 
@@ -792,6 +795,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             const soundSrc = btn.dataset.sound;
+            const targetAudioElement = document.getElementById(soundSrc);
             const card = btn.closest('.sound-card');
             
             if (currentPlayingCard === card) {
@@ -801,24 +805,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
             stopAllAudio();
 
-            currentAudio = new Audio(soundSrc);
-            currentPlayingCard = card;
+            if (targetAudioElement) {
+                currentAudio = targetAudioElement;
+                currentPlayingCard = card;
 
-            // Visual feedback
-            card.classList.add('playing');
-            const playIcon = btn.querySelector('.play-icon');
-            const playText = btn.querySelector('.play-text');
-            if (playIcon) playIcon.textContent = '⏸';
-            if (playText) playText.textContent = 'Tocando...';
+                // Visual feedback
+                card.classList.add('playing');
+                const playIcon = btn.querySelector('.play-icon');
+                const playText = btn.querySelector('.play-text');
+                if (playIcon) playIcon.textContent = '⏸';
+                if (playText) playText.textContent = 'Tocando...';
 
-            currentAudio.play().catch(err => {
-                console.log('Audio play error:', err);
-                stopAllAudio();
-            });
+                currentAudio.play().catch(err => {
+                    console.log('Audio play error:', err);
+                    stopAllAudio();
+                });
 
-            currentAudio.addEventListener('ended', () => {
-                stopAllAudio();
-            });
+                currentAudio.addEventListener('ended', () => {
+                    stopAllAudio();
+                });
+            }
         });
     });
 

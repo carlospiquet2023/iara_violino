@@ -277,7 +277,7 @@
                 </div>
             </div>
             <div class="gallery-grid scroll-reveal">
-                <div class="gallery-item gallery-item-large" data-tilt data-sound="som_de_violino/adiiswanto-cvilni-violin-302859.mp3">
+                <div class="gallery-item gallery-item-large" data-tilt data-sound="audio_violino_1">
                     <img src="violinist_hero_1784156434935.png" alt="A beleza de tocar violino" loading="lazy">
                     <div class="gallery-overlay">
                         <span class="gallery-label">O Sonho</span>
@@ -285,7 +285,7 @@
                     </div>
                     <div class="sound-click-hint">🎵</div>
                 </div>
-                <div class="gallery-item" data-tilt data-sound="som_de_violino/audiolibraryinfinite-echo-violin-418240.mp3">
+                <div class="gallery-item" data-tilt data-sound="audio_violino_2">
                     <img src="violin_closeup_1784156445150.png" alt="Detalhe do instrumento" loading="lazy">
                     <div class="gallery-overlay">
                         <span class="gallery-label">O Instrumento</span>
@@ -293,7 +293,7 @@
                     </div>
                     <div class="sound-click-hint">🎶</div>
                 </div>
-                <div class="gallery-item" data-tilt data-sound="som_de_violino/nastelbom-violin-299793.mp3">
+                <div class="gallery-item" data-tilt data-sound="audio_violino_3">
                     <img src="concert_stage_1784156453526.png" alt="O palco" loading="lazy">
                     <div class="gallery-overlay">
                         <span class="gallery-label">O Futuro</span>
@@ -301,7 +301,7 @@
                     </div>
                     <div class="sound-click-hint">🎻</div>
                 </div>
-                <div class="gallery-item gallery-item-wide" data-tilt data-sound="som_de_violino/violin_la_440hz.wav">
+                <div class="gallery-item gallery-item-wide" data-tilt data-sound="audio_violino_4">
                     <img src="concert_stage_1784156453526.png" alt="Palco dos sonhos" loading="lazy">
                     <div class="gallery-overlay">
                         <span class="gallery-label">Sem Limites</span>
@@ -340,7 +340,7 @@
                         <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
                         <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
                     </div>
-                    <button class="btn btn-secondary btn-sound" data-sound="som_de_violino/adiiswanto-cvilni-violin-302859.mp3" id="playBtn1">
+                    <button class="btn btn-secondary btn-sound" data-sound="audio_violino_1" id="playBtn1">
                         <span class="play-icon">▶</span>
                         <span class="play-text">Ouvir Violino 1</span>
                     </button>
@@ -359,7 +359,7 @@
                         <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
                         <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
                     </div>
-                    <button class="btn btn-secondary btn-sound" data-sound="som_de_violino/audiolibraryinfinite-echo-violin-418240.mp3" id="playBtn2">
+                    <button class="btn btn-secondary btn-sound" data-sound="audio_violino_2" id="playBtn2">
                         <span class="play-icon">▶</span>
                         <span class="play-text">Ouvir Violino 2</span>
                     </button>
@@ -378,7 +378,7 @@
                         <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
                         <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
                     </div>
-                    <button class="btn btn-secondary btn-sound" data-sound="som_de_violino/nastelbom-violin-299793.mp3" id="playBtn3">
+                    <button class="btn btn-secondary btn-sound" data-sound="audio_violino_3" id="playBtn3">
                         <span class="play-icon">▶</span>
                         <span class="play-text">Ouvir Violino 3</span>
                     </button>
@@ -676,6 +676,11 @@
             <p class="loading-text">Preparando algo especial para Iara...</p>
         </div>
     </div>
+    <!-- Native Audio Elements for Browser Compatibility -->
+    <audio id="audio_violino_1" src="som_de_violino/adiiswanto-cvilni-violin-302859.mp3" preload="auto"></audio>
+    <audio id="audio_violino_2" src="som_de_violino/audiolibraryinfinite-echo-violin-418240.mp3" preload="auto"></audio>
+    <audio id="audio_violino_3" src="som_de_violino/nastelbom-violin-299793.mp3" preload="auto"></audio>
+    <audio id="audio_violino_4" src="som_de_violino/violin_la_440hz.wav" preload="auto"></audio>
 
     <script src="script.js"></script>
 </body>
