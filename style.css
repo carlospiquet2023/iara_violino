@@ -1300,6 +1300,49 @@ a:hover {
     grid-column: span 2;
 }
 
+/* ─── Infinite Carousel Styles ─── */
+.gallery-carousel-wrapper {
+    overflow: hidden;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    position: relative;
+    padding: var(--space-lg) 0;
+    cursor: grab;
+}
+
+.gallery-carousel-wrapper:active {
+    cursor: grabbing;
+}
+
+.gallery-carousel-track {
+    display: flex;
+    width: max-content;
+    animation: scroll-carousel 35s linear infinite;
+    gap: var(--space-lg);
+}
+
+.gallery-carousel-track:hover {
+    animation-play-state: paused;
+}
+
+.gallery-carousel-track .gallery-item {
+    width: 320px;
+    height: 450px;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.gallery-carousel-track .gallery-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+@keyframes scroll-carousel {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - (var(--space-lg) / 2))); }
+}
+
 .gallery-overlay {
     position: absolute;
     bottom: 0;
